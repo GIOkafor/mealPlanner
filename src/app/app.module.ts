@@ -6,6 +6,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { AngularCalendarComponent } from './angular-calendar/angular-calendar.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { AngularCalendarComponent } from './angular-calendar/angular-calendar.co
   imports: [
     BrowserModule,
     FullCalendarModule,
-    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }) 
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
