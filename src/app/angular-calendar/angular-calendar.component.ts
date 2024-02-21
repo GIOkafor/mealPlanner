@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { CalendarEvent, CalendarView } from 'angular-calendar';
+import { CalendarStore } from './calendar.store';
+import { getState } from '@ngrx/signals';
 
 @Component({
   selector: 'app-angular-calendar',
@@ -7,15 +9,13 @@ import { CalendarEvent, CalendarView } from 'angular-calendar';
   styleUrls: ['./angular-calendar.component.scss']
 })
 export class AngularCalendarComponent {
-  view: CalendarView = CalendarView.Month;
+  store = inject(CalendarStore);
+  CalendarView = CalendarView;
 
-  viewDate: Date = new Date();
-
-  events: CalendarEvent[] = [
-    {
-      title: 'Has custom class',
-      start: new Date(),
-      cssClass: 'my-custom-class',
-    },
-  ];
+  constructor() {
+    effect(()=>{
+      const state = getState(this.store);
+      console.log('Calendar state changed: ', state);
+    })
+  }
 }
