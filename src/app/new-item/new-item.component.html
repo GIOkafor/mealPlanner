@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>Select Meals for {{data.date?.date}}</h2>
+<mat-dialog-content>
+  
+  <mat-form-field>
+    <mat-label>Breakfast</mat-label>
+    <input matInput [(ngModel)]="data.animal">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Lunch</mat-label>
+    <input matInput />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Dinner</mat-label>
+    <input matInput />
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
+</mat-dialog-actions>

@@ -62,18 +62,21 @@
     [viewDate]="store.viewDate()"
     [events]="store.events()"
     [activeDayIsOpen]="true"
+    (dayClicked)="dayClicked($event.day)"
   >
   </mwl-calendar-month-view>
   <mwl-calendar-week-view
     *ngSwitchCase="'week'"
     [viewDate]="store.viewDate()"
     [events]="store.events()"
+    (dayHeaderClicked)="dayHeaderClicked($event.day)"
   >
   </mwl-calendar-week-view>
   <mwl-calendar-day-view
     *ngSwitchCase="'day'"
     [viewDate]="store.viewDate()"
     [events]="store.events()"
+    (hourSegmentClicked)="hourSegmentClicked($event)"
   >
   </mwl-calendar-day-view>
 </div>
