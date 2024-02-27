@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { CalendarEvent, CalendarView } from 'angular-calendar';
+import { CalendarStore } from './calendar.store';
+import { getState } from '@ngrx/signals';
+import { MatDialog } from '@angular/material/dialog';
+import { NewItemComponent } from '../new-item/new-item.component';
 
 @Component({
   selector: 'app-angular-calendar',
@@ -7,15 +11,42 @@ import { CalendarEvent, CalendarView } from 'angular-calendar';
   styleUrls: ['./angular-calendar.component.scss']
 })
 export class AngularCalendarComponent {
-  view: CalendarView = CalendarView.Month;
+  store = inject(CalendarStore);
+  CalendarView = CalendarView;
 
-  viewDate: Date = new Date();
+  constructor(
+    private dialog: MatDialog
+  ) {
+    effect(()=>{
+      const state = getState(this.store);
+      console.log('Calendar state changed: ', state);
+    })
+  }
 
-  events: CalendarEvent[] = [
-    {
-      title: 'Has custom class',
-      start: new Date(),
-      cssClass: 'my-custom-class',
-    },
-  ];
+  dayClicked(date: any){
+    // console.log("day clicked with date");
+    // console.log({date});
+    this.openDialog(date);
+  }
+
+  dayHeaderClicked(date: any){
+    // console.log("day header clicked with value");
+    // console.log({date});
+  }
+
+  hourSegmentClicked(date: any){
+    console.log({date});
+  }
+
+  openDialog(date: any): void {
+    const dialogRef = this.dialog.open(NewItemComponent, {
+      data: {name: 'Super Eagles', animal: 'Eagle', date},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log('The dialog was closed');
+      // console.log({result});
+      // IF RESULT CLOSE + ADD EVENT TO STORE.EVENTS
+    });
+  }
 }
